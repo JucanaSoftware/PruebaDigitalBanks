@@ -1,0 +1,40 @@
+﻿@page "{id?}"
+@model Presentacion.Pages.Usuario.CrearModel
+@{
+    ViewData["Title"] = Model.EsEdicion ? "Modificar Usuario" : "Agregar Usuario";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div class="row">
+   <div class="col">
+    <form method="post">
+        <div class="mb-3">
+            <label class="form-label">Nombre:</label>
+            <input asp-for="Usuario.Nombre" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Fecha Nacimiento:</label>
+            <input asp-for="Usuario.FechaNacimiento" type="date" class="form-control" required />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Sexo:</label>
+            <select asp-for="Usuario.Sexo" class="form-control" required>
+                <option value="" disabled selected>Seleccione</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+            </select>
+        </div>
+        <br />
+            <div class="mb-3 text-center">
+            <button type="submit" class="btn btn-success"><i class="bi bi-floppy"> Guardar</i></button>
+            <a asp-page="Index" class="btn btn-secondary"><i class="bi bi-arrow-left"></i> Volver</a>
+        </div>
+    </form>
+   </div>
+</div>
+
+@if (!string.IsNullOrEmpty(Model.Mensaje))
+{
+    <p>@Model.Mensaje</p>
+}

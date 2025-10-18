@@ -1,0 +1,48 @@
+﻿@page
+@model Presentacion.Pages.Usuario.IndexModel
+@{
+    ViewData["Title"] = "Usuarios";
+}
+@if (TempData["Mensaje"] != null)
+{
+    <div id="alertaMensaje" class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Mensaje"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2>Usuarios Registrados</h2>
+<p>
+    <a class="btn btn-success" asp-page="Crear"> Crear <i class="bi bi-person-plus-fill"></i></a>
+</p>
+
+<table class="table table-bordered">
+    <thead class="table-dark">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Fecha Nacimiento</th>
+            <th>Sexo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var u in Model.Usuarios)
+        {
+            <tr>
+                <td>@u.Id</td>
+                <td>@u.Nombre</td>
+                <td>@u.FechaNacimiento.ToShortDateString()</td>
+                <td>@u.Sexo</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="Crear" asp-route-id="@u.Id"><i class="bi bi-pencil-square" title="Modificar"></i></a>
+
+                    <form method="post" asp-page-handler="Eliminar" style="display:inline;">
+                        <input type="hidden" name="id" value="@u.Id" />
+                        <button type="submit" class="btn btn-danger" onclick="return confirm('¿Está seguro de eliminar este usuario?');"><i class="bi bi-trash" title="Eliminar"></i></button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
